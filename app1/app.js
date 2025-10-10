@@ -87,7 +87,7 @@ class Bd {
         //dia
         if(despesa.dia != '') {
             console.log('filtro de dia')
-                despesasFiltradas = despesasFiltradas.filter(d => d.dia == despesa.ano)
+                despesasFiltradas = despesasFiltradas.filter(d => d.dia == despesa.dia)
             }
 
         //tipo
@@ -109,6 +109,8 @@ class Bd {
             }
 
         console.log(despesasFiltradas)
+
+        return despesasFiltradas
     }
 }
 
@@ -164,13 +166,15 @@ function cadastrarDespesa() {
     
 }
 
-function carregaListaDespesas() {
+function carregaListaDespesas(despesas = Array(), filtro = false) {
 
-    let despesas = Array()
+    if(despesas.length == 0 && filtro == false) {
+        despesas = bd.recuperarTodosRegistros()
+    }
     
-    despesas = bd.recuperarTodosRegistros()
 
     let listaDespesas = document.getElementById('listaDespesas')
+    listaDespesas.innerHTML = ''
 
     /*
     <tr>
@@ -223,5 +227,10 @@ function pesquisarDespesa() {
 
     let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
 
-    bd.pesquisar(despesa)
+    let despesas = bd.pesquisar(despesa)
+
+    let listaDespesas = document.getElementById('listaDespesas')
+    listaDespesas.innerHTML = ''
+
+    carregaListaDespesas(despesas, true)
 }
