@@ -52,8 +52,6 @@ class Bd {
 
             let despesa = JSON.parse(localStorage.getItem(i));
 
-            console.log(i, despesa)
-
             //existe a possibilidade de haver índices que foram pulados/removidos
             //nestes casos nós vamos pular esses índices
             if(despesa === null) {
@@ -66,7 +64,51 @@ class Bd {
     }
 
     pesquisar(despesa) {
+        let despesasFiltradas = Array()
+        despesasFiltradas = this.recuperarTodosRegistros()
+
+        
         console.log(despesa)
+
+        console.log(despesasFiltradas)
+
+        //ano
+        if(despesa.ano != '') {
+            console.log('filtro de ano')
+                despesasFiltradas = despesasFiltradas.filter(d => d.ano == despesa.ano)
+            }
+
+        //mes
+        if(despesa.mes != '') {
+            console.log('filtro de mes')
+                despesasFiltradas = despesasFiltradas.filter(d => d.mes == despesa.mes)
+            }
+
+        //dia
+        if(despesa.dia != '') {
+            console.log('filtro de dia')
+                despesasFiltradas = despesasFiltradas.filter(d => d.dia == despesa.ano)
+            }
+
+        //tipo
+        if(despesa.tipo != '') {
+            console.log('filtro de tipo')
+                despesasFiltradas = despesasFiltradas.filter(d => d.tipo == despesa.tipo)
+            }
+
+        //descricao
+        if(despesa.descricao != '') {
+            console.log('filtro de descricao')
+                despesasFiltradas = despesasFiltradas.filter(d => d.descricao == despesa.descricao)
+            }
+
+        //valor
+        if(despesa.valor != '') {
+            console.log('filtro de valor')
+                despesasFiltradas = despesasFiltradas.filter(d => d.valor == despesa.valor)
+            }
+
+        console.log(despesasFiltradas)
     }
 }
 
@@ -141,8 +183,6 @@ function carregaListaDespesas() {
 
     //percorrer o array despesas, listando cada despesa de forma dinâmica
     despesas.forEach(function(d) {
-
-        console.log(d)
         
         //criando a linha (tr)
         let linha = listaDespesas.insertRow()
